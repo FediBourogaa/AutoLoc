@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +36,11 @@ public class Paiement {
     @Column(nullable = false)
     private LocalDate datePaiement;
 
-    @Enumerated(EnumType.STRING)   // ⬅️ LIGNE À AJOUTER
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private ModePaiement modePaiement;
+
+    @OneToOne
+    @JoinColumn(name = "contrat_id", unique = true)
+    private Contrat contrat;
 }
